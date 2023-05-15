@@ -1,5 +1,5 @@
 # Data Analytics Blog
-Data blog is blog website for data analytics students
+Data blog is a blog website for data analytics students
 
 # Instructions:
 * Fork the repo
