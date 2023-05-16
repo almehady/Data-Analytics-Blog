@@ -1,5 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import *
+from .serializers import *
+from rest_framework import permissions, renderers, viewsets, generics, mixins
 # Create your views here.
 
 def index(request):
@@ -7,3 +10,15 @@ def index(request):
 
 def about(request):
     return HttpResponse("this is about page")
+
+
+class BlogViewSet(viewsets.ReadOnlyModelViewSet):
+    '''
+    All blog viewset
+    * Methods : GET and POST
+    * Only authenticated user will get access to his/her blog post only
+    '''
+    queryset = Blog.objects.filter(status='P')
+    serializer_class = BlogSerializer
+    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    http_method_names = ['get']
