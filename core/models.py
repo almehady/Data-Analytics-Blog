@@ -19,6 +19,7 @@ class Profile(AbstractUser):
 class Blog(models.Model):
     title = models.CharField(max_length=255)
     body = models.TextField(blank=False)
+    blog_image = models.ImageField(upload_to="blog_image", blank=True, null=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=1, default='P')
     # user = models.ForeignKey('Profile', blank=True, null=True, default=None, on_delete=models.CASCADE)
 

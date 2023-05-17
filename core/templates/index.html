@@ -1,0 +1,12 @@
+{% load static %}
+
+<h1>Data Analytics Blog</h1>
+<img src="{% static 'images/data_analytics_challenges.webp'%}" alt="blog image">
+<p>Bloglist</p>
+
+{% for blog in blogs %}
+<h2>{{blog.title}}</h2>
+<img src="{{blog.blog_image.url}}" alt="{{blog.title}}" width="400px" height="auto">
+<p>{{blog.body}}</p>
+
+{% endfor %}

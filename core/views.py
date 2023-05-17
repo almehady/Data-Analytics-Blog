@@ -22,3 +22,14 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BlogSerializer
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     http_method_names = ['get']
+
+def blog(request):
+    blogs = Blog.objects.all().filter(status='P')
+    print(blogs)
+    my_company = 'ADN Diginet'
+
+    context = {
+        'blogs': blogs,
+        'my_company': my_company
+    }
+    return render (request, 'index.html', context)
