@@ -1,6 +1,10 @@
 from django.urls import path
 from . import views
 from .views import *
+from django.urls import path, re_path, include
+from rest_framework import routers
+# router = routers.DefaultRouter()
+# router.register(r'api/blog/', BlogViewSet, basename='blog')
 
 urlpatterns = [
     path("", views.index, name="home"),

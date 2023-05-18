@@ -1,3 +1,4 @@
+from typing import Iterable, Optional
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.models import AbstractUser
@@ -21,8 +22,9 @@ class Blog(models.Model):
     body = models.TextField(blank=False)
     blog_image = models.ImageField(upload_to="blog_image", blank=True, null=True)
     status = models.CharField(choices=STATUS_CHOICES, max_length=1, default='P')
-    # user = models.ForeignKey('Profile', blank=True, null=True, default=None, on_delete=models.CASCADE)
+    user = models.ForeignKey('Profile', blank=True, null=True, default=None, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.title
+    
     

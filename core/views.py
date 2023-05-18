@@ -22,6 +22,7 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = BlogSerializer
     # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     http_method_names = ['get']
+    
 
 def blog(request):
     blogs = Blog.objects.all().filter(status='P')
