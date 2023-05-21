@@ -12,7 +12,10 @@ def about(request):
     return HttpResponse("this is about page")
 
 
-class BlogViewSet(viewsets.ReadOnlyModelViewSet):
+class BlogViewSet(mixins.CreateModelMixin,
+                                mixins.ListModelMixin,
+                                mixins.RetrieveModelMixin,
+                                viewsets.GenericViewSet):
     '''
     All blog viewset
     * Methods : GET and POST
@@ -20,9 +23,20 @@ class BlogViewSet(viewsets.ReadOnlyModelViewSet):
     '''
     queryset = Blog.objects.filter(status='P')
     serializer_class = BlogSerializer
-    # permission_classes = [permissions.IsAuthenticatedOrReadOnly]
-    http_method_names = ['get']
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     
+
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+        
+    def get_queryset(self, *args, **kwargs):
+        if self.action == 'list':
+            print('is user authenticated', self.request.user.is_authenticated)
+            print('requested user', self.request.user)
+            if self.request.user.is_authenticated:
+                return self.queryset.filter(user=self.request.user)
+        return self.queryset
+
 
 def blog(request):
     blogs = Blog.objects.all().filter(status='P')
